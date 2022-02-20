@@ -2,8 +2,9 @@
 import 'core-js/stable';
 // polyfilling async methods
 import 'regenerator-runtime/runtime';
-
+// model
 import * as model from './model.js';
+// views
 import recipeView from './views/recipeView.js';
 
 const recipeContainer = document.querySelector('.recipe');
@@ -25,10 +26,11 @@ const controlRecipes = async function () {
     // 2) Rendering recipe
     recipeView.render(model.state.recipe);
   } catch (err) {
-    alert(err);
+    console.log(err);
   }
 };
 
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipes)
-);
+const init = function () {
+  recipeView.addHandlerRender(controlRecipes);
+};
+init();
